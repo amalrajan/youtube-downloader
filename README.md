@@ -12,7 +12,8 @@ This project is still a work in progress. Contributions are welcome :)
 ## Version and Status
 
 `Version 0.1.1`
-Status: Work in progress.
+
+**Status**: Work in progress.
 
 
 ## License
