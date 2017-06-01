@@ -5,6 +5,7 @@ import os
 class Downloader:
     default_config = None
     first_time = True
+    flag = True
 
     def __init__(self):
         print("YouTube Downloader 0.1.1")
@@ -30,14 +31,14 @@ class Downloader:
         self.batch_file_path = None
         self.default_configuration = None
 
-    def download_single(self, url=None, default_configuration=None):
+    def download_single(self, url=None, default_configuration=None, batch=None):
         if not url:
             self.url = input("\nEnter the URL of the video:\n")
         else:
             self.url = url
 
         print()
-        if default_configuration:
+        if not Downloader.first_time or batch:
             self.video_description_mini(self.url, default_configuration)
         else:
             self.video_description(self.url)
@@ -60,7 +61,7 @@ class Downloader:
 
     def stream_lists(self, video, default_configuration=None):
         self.default_configuration = default_configuration
-        if not self.default_configuration:
+        if Downloader.first_time:
             print()
             print("Select the stream: ")
             print("-----------------")
@@ -76,19 +77,18 @@ class Downloader:
                     print("Invalid input. Choose again.\n")
                 else:
                     break
+            Downloader.default_config['stream_type'] = self.choice
+
         else:
-            if Downloader.first_time:
-                Downloader.default_config['stream_type'] = self.choice
-                Downloader.first_time = False
-            else:
-                self.choice = Downloader.default_config['stream_type']
+            self.choice = Downloader.default_config['stream_type']
+            Downloader.flag = False
 
         eval({"1": "self.stream_regular", "2": "self.stream_audio", "3": "self.stream_video",
               "4": "self.stream_ogg", "5": "self.stream_m4", "10": "self.stream_listall"}[
                  self.choice] + "(video, Downloader.default_config)")
 
     def stream_regular(self, video, default_configuration=None):
-        if not default_configuration:
+        if Downloader.first_time:
             print("\nAvailable Streams:\n")
             self.streams = video.streams
             for stream in range(len(self.streams)):
@@ -131,10 +131,13 @@ class Downloader:
             self.choice = input("Start download? (y/n)\n").lower()
             if self.choice == 'y':
                 self.start_download(self.streams[int(self.stream_choice) - 1], self.file_path, video)
+            Downloader.default_config['stream'] = self.stream_choice
+            Downloader.default_config['path'] = self.file_path
         else:
             self.streams = video.streams
-            self.start_download(self.streams[int(self.default_configuration['stream']) - 1],
-                                self.default_configuration['path'], video)
+            self.start_download(self.streams[int(Downloader.default_config['stream']) - 1],
+                                Downloader.default_config['path'], video)
+            Downloader.first_time = False
 
     def start_download(self, stream, path, video):
         try:
@@ -171,7 +174,11 @@ class Downloader:
             print("Choose the configuration for the first video, "
                   "else all will be downloaded to at least the best quality possible, if not the preferred one.")
             Downloader.default_config =  {"stream_type": None, "stream": None, "path": None}
-            self.download_single(self.url_data[0])
+            self.download_single(self.url_data[0], batch=True)
+            if len(self.url_data) > 1:
+                Downloader.first_time = False
+                for url in range(1, len(self.url_data)):
+                    self.download_single(self.url_data[url])
 
 
 app = Downloader()
