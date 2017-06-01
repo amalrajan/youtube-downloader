@@ -11,7 +11,7 @@ Contributions are welcome :)
 
 ## Version and Status
 
-`Version 0.1.1`
+`Version 0.2.0`
 
 **Status**: Work in progress.
 
