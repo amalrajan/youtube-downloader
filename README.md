@@ -14,6 +14,7 @@ Contributions are welcome :)
 ```
 cd folder_name
 git clone https://github.com/amal-is-lollichop/youtube-downloader.git
+cd youtube-downloader
 python3 ytdl.py
 ```
 
