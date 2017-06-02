@@ -126,7 +126,7 @@ class Downloader:
                     else:
                         continue
 
-                print("File size: ", self.streams[self.stream_choice - 1].get_filesize())
+                print("File size: ", self.streams[int(self.stream_choice) - 1].get_filesize())
             print()
             self.choice = input("Start download? (y/n)\n").lower()
             if self.choice == 'y':
