@@ -11,11 +11,11 @@ Contributions are welcome :)
 
 ## Installation and Usage
 
-`cd folder_name`
-
-`git clone https://github.com/amal-is-lollichop/youtube-downloader.git`
-
-`python3 ytdl.py`
+```
+cd folder_name
+git clone https://github.com/amal-is-lollichop/youtube-downloader.git
+python3 ytdl.py
+```
 
 
 ## Version and Status
