@@ -20,7 +20,7 @@ python3 ytdl.py
 
 ## Version and Status
 
-`Version 0.2.4`
+`Version 0.3.0`
 
 **Status**: Work in progress.
 
