@@ -18,6 +18,9 @@ cd youtube-downloader
 python3 ytdl.py
 ```
 
+## Requirements
+* pafy
+* PyQt5
 
 ## Version and Status
 
@@ -28,3 +31,4 @@ python3 ytdl.py
 
 ## License
 `MIT License`
+
