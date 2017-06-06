@@ -4,23 +4,27 @@ _Yet another tool to download youtube videos (and more, coming soon)._
  
 ## Description
 
-Download videos from Youtube using this simple tool. Supports downloads in queue [WIP]. Paste your links in a single text file and let the program download all the videos in it.
+Download videos from Youtube using this simple tool, right from the command line. Supports downloading multiple videos.
 
 Contributions are welcome :)
 
 
-## Installation and Usage
-
+## Installation
+There is no stable version at the moment.
 ```
 cd folder_name
-git clone https://github.com/amal-is-lollichop/youtube-downloader.git
+git clone https://github.com/Amal-RX/youtube-downloader.git
 cd youtube-downloader
 python3 ytdl.py
 ```
 
+## Usage
+(to be updated)
+
+
 ## Requirements
+* Python 3x
 * pafy
-* PyQt5
 
 ## Version and Status
 
