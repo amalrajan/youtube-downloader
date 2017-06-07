@@ -8,8 +8,11 @@ class Main:
 
     def __init__(self):
         self.silent = False
+        self.multiple = False
         self.audio_only = False
         self.video_only = False
+        self.maxquality = False
+        self.filepath = None
         self.best_quality = False
         self.data = sys.argv
         self.regular_url = "https?://www.youtube.com/"
@@ -22,14 +25,25 @@ class Main:
         elif "--video" in self.data:
             self.video_only = True
 
+        if "--maxquality" in self.data:
+            self.maxquality = True
+
+        if "multiple" in self.data and self.data[2][-3:] != 'txt':
+            print("File should have the extension 'txt'. Program terminated.")
+            sys.exit(1)
+
         if "single" in self.data:
             self.download_single()
         elif "multiple" in self.data:
+            self.multiple = True
             self.download_multiple()
         else:
             self.download_comments()
 
     def video_description(self, url):
+        if not re.match(self.regular_url, url):
+            print("Invalid URL. Execution terminated.")
+            sys.exit(1)
         self.video = pafy.new(url.strip())
 
         self.views = self.video.viewcount
@@ -49,36 +63,42 @@ class Main:
                                         self.video.duration, round(self.video.rating, 2),
                                         self.views))
 
+        self.list_streams()
+
     def list_streams(self):
-        print("\n\tAvailable streams:\n")
-        if self.audio_only:
-            self.streams = self.video.audiostreams
-        elif self.video_only:
-            self.streams = self.video.videostreams
+        if self.maxquality:
+            self.stream = self.video.getbest()
         else:
-            self.streams = self.video.streams
-
-        print("\t    %5s | %10s" % ("stream", "resolution"))
-        print("\t-- + ----- + ----------")
-
-        for index, stream in enumerate(self.streams):
-            print("\t%2s    %5s  %10s" % (index, str(stream).split(':')[-1].split('@')[0], 
-                str(stream).split(':')[-1].split('@')[1]))
-        print()
-
-        while True:
-            try:
-                choice = int(input("Choice? "))
-            except KeyboardInterrupt:
-                print("Program terminated.")
-            except ValueError:
-                print("Invalid input. Trye again.")
+            print("\n\tAvailable streams:\n")
+            if self.audio_only:
+                self.streams = self.video.audiostreams
+            elif self.video_only:
+                self.streams = self.video.videostreams
             else:
-                if not choice in range(len(self.streams)):
-                    print("Invalid input. Try again.")
+                self.streams = self.video.streams
+
+            print("\t    %5s | %10s" % ("stream", "resolution"))
+            print("\t-- + ----- + ----------")
+
+            for index, stream in enumerate(self.streams):
+                print("\t%2s    %5s  %10s" % (index, str(stream).split(':')[-1].split('@')[0], 
+                    str(stream).split(':')[-1].split('@')[1]))
+            print()
+
+            while True:
+                try:
+                    choice = int(input("Choice? "))
+                except KeyboardInterrupt:
+                    print("Program terminated.")
+                    sys.exit(0)
+                except ValueError:
+                    print("Invalid input. Trye again.")
                 else:
-                    self.stream = self.streams[choice]
-                    break
+                    if not choice in range(len(self.streams)):
+                        print("Invalid input. Try again.")
+                    else:
+                        self.stream = self.streams[choice]
+                        break
 
         self.ask_file_path()
 
@@ -117,12 +137,15 @@ class Main:
 
 
     def download_single(self):
-        if not re.match(self.regular_url, self.data[2]):
-            print("Invalid URL. Execution terminated.")
-            sys.exit(1)
-
         self.video_description(self.data[2])
-        self.list_streams()
+
+    def download_multiple(self):
+        with open(self.data[2]) as self.textfile:
+            self.urls = self.textfile.read().split('\n')
+
+        for url in self.urls:
+            self.video_description(url)
+            print()
 
 
 app = Main()
