@@ -1,3 +1,4 @@
+
 # YouTube Downloader
 
 _Yet another tool to download youtube videos (and more, coming soon)._
@@ -19,12 +20,27 @@ python3 ytdl.py
 ```
 
 ## Usage
-(to be updated)
+```
+usage: main.py [-h] [-m] [-o OUTPUT] type url
+
+positional arguments:
+  type                   single/multple/playlist/profile
+  url                    link to the original video on YouTube, or 
+                         complete path to the text file
+
+optional arguments:
+  -h, --help             show this message and exit
+  -m, --maxquality       download video(s) in the best quality available
+  -a, --audio            audio only mode
+  -o OUTPUT, --output OUTPUT
+                         download location
+```
 
 
 ## Requirements
 * Python 3x
 * pafy
+* youtube-dl
 
 ## Version and Status
 
