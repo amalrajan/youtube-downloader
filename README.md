@@ -1,3 +1,4 @@
+
 # YouTube Downloader
 
 _Yet another tool to download youtube videos (and more, coming soon)._
@@ -39,6 +40,7 @@ optional arguments:
 ## Requirements
 * Python 3x
 * pafy
+* youtube-dl
 
 ## Version and Status
 
