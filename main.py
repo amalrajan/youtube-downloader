@@ -12,10 +12,10 @@ def argument_parser():
     parser = argparse.ArgumentParser(description="YouTube Downloader (Unofficial)")
     parser.add_argument('type', type=str, help="single/multiple/playlist/profile")
     parser.add_argument('url', type=str, help="link to the original video on YouTube")
-    parser.add_argument('-m', '--maxquality', action='store_true', default=False,
-                        help="download video(s) in the best quality available")
     parser.add_argument('-a', '--audio', action='store_true', default=False, help="audio only mode")
     parser.add_argument('-o', '--output', type=str, default=None, help="download location")
+    parser.add_argument('-m', '--maxquality', action='store_true', default=False,
+                        help="download video(s) in the best quality available")
     # parser.add_argument('--silent', action='store_true', default=False, help="silent operations")
     args = parser.parse_args()
     sys.stdout.write(str(analyze_arguments(args)))
@@ -68,14 +68,15 @@ def download_playlist(args):
     print()
 
     for skel in urls:
-        url = 'https://www.youtube.com/' + skel
+        url = 'https://www.youtube.com' + skel
         video_description(url)
+        video = pafy.new(url)
 
         if not args.maxquality:
             stream = list_streams(args)
         else:
-            stream = pafy.new(args.url).getbest()
-        start_download(stream, args.output, title=pafy.new(url).title)
+            stream = video.getbest()
+        start_download(stream, path=args.output, title=video.title)
         print()
 
 
@@ -140,11 +141,12 @@ def list_streams(args):
 def start_download(stream, path, title=None):
     # For downloading a single video.
     if path is None:
-        stream.download()
-    elif title is None:
+        path = os.getcwd()
+
+    if title is None:
         stream.download(filepath=path)
     else:
-        stream.download(filepath="{}\{}.{}".format(os.getcwd(), title, str(stream).split('@')[0][-3:]))
+        stream.download(filepath="{}\{}.{}".format(path, title, str(stream).split('@')[0][-3:]))
         # Only the playlist cases.
 
 
