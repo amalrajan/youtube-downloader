@@ -57,13 +57,8 @@ def download_multiple(args):
         video_description(url)
 
 def download_playlist(args):
-    # For downloading an entire playlist. Provided, the first video in the list is passed as an argument.
-    pass
-
-
-def get_playlist(url):
-    # For extracting the URLs of all the videos in a playlist.
-    sauce = urllib.request.urlopen(url).read()
+    # For extracting the URLs of all the videos in a playlist and downloading it one after another.
+    sauce = urllib.request.urlopen(args.url).read()
     soup = bs.BeautifulSoup(sauce, 'lxml')
     urls = set([i.get('href') for i in soup.find_all('a') if 'index' in i.get('href')])
 
@@ -72,7 +67,15 @@ def get_playlist(url):
     print()
 
     for url in urls:
-        video_description(url)
+        video_description('https://www.youtube.com/' + url)
+
+        if not args.maxquality:
+            stream = list_streams(args)
+        else:
+            stream = pafy.new(args.url).getbest()
+        start_download(stream, args.output)
+
+        print()
 
 
 def video_description(url):
