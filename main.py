@@ -65,7 +65,7 @@ def download_playlist(args):
     # For extracting the URLs of all the videos in a playlist and downloading it one after another.
     sauce = urllib.request.urlopen(args.url).read()
     soup = bs.BeautifulSoup(sauce, 'lxml')
-    urls = set([i.get('href') for i in soup.find_all('a') if 'index' in i.get('href')])
+    urls = set([i.get('href') for i in soup.find_all('a') if 'index=' in i.get('href')])
 
     print()
     print("This playlist contains {} videos.".format(len(urls)))
