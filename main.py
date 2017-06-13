@@ -56,6 +56,7 @@ def download_multiple(args):
     for url in data:
         video_description(url)
 
+
 def download_playlist(args):
     # For extracting the URLs of all the videos in a playlist and downloading it one after another.
     sauce = urllib.request.urlopen(args.url).read()
@@ -66,15 +67,15 @@ def download_playlist(args):
     print("This playlist contains {} videos.".format(len(urls)))
     print()
 
-    for url in urls:
-        video_description('https://www.youtube.com/' + url)
+    for skel in urls:
+        url = 'https://www.youtube.com/' + skel
+        video_description(url)
 
         if not args.maxquality:
             stream = list_streams(args)
         else:
             stream = pafy.new(args.url).getbest()
-        start_download(stream, args.output)
-
+        start_download(stream, args.output, title=pafy.new(url).title)
         print()
 
 
@@ -99,6 +100,7 @@ def video_description(url):
 \tViews        : {} \n""".format(video.title, video.author,
                                  video.duration, round(video.rating, 2),
                                  views))
+    print()
 
 
 def list_streams(args):
@@ -135,9 +137,15 @@ def list_streams(args):
                 return streams[choice]
 
 
-def start_download(stream, path):
+def start_download(stream, path, title=None):
     # For downloading a single video.
-    stream.download(filepath=path)
+    if path is None:
+        stream.download()
+    elif title is None:
+        stream.download(filepath=path)
+    else:
+        stream.download(filepath="{}\{}.{}".format(os.getcwd(), title, str(stream).split('@')[0][-3:]))
+        # Only the playlist cases.
 
 
 if __name__ == '__main__':
