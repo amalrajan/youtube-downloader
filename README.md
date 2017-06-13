@@ -41,6 +41,7 @@ py -3.6 main.py single "https://www.youtube.com/watch?v=aIPqt-OdmS0&list=PLQVvva
 ```
 **Note**: 
 * The url and the output directory must be passed within double quotes. 
+* While using the 'playlist' mode, it is not necessary to give the URL of the first video.
 
 
 ## Requirements
