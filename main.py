@@ -16,7 +16,8 @@ def argument_parser():
     parser.add_argument('-o', '--output', type=str, default=None, help="download location")
     parser.add_argument('-m', '--maxquality', action='store_true', default=False,
                         help="download video(s) in the best quality available")
-    # parser.add_argument('--silent', action='store_true', default=False, help="silent operations")
+    parser.add_argument('--silent', action='store_true', default=False, help="silent operations")
+    # --silent is ATM supported only for 'playlist' mode.
     args = parser.parse_args()
     sys.stdout.write(str(analyze_arguments(args)))
 
@@ -27,6 +28,9 @@ def analyze_arguments(args):
         print("The URL is invalid.")
     elif args.type == 'multiple' and args.url[-3:] != 'txt':
         print("The file type is not supported.")
+    elif not os.path.exists(args.output):
+        print("The path does not exist.")
+        sys.exit()
     else:
         if args.type == 'single':
             download_single(args)
@@ -69,7 +73,9 @@ def download_playlist(args):
 
     for skel in urls:
         url = 'https://www.youtube.com' + skel
-        video_description(url)
+
+        if not args.silent:
+            video_description(url)
         video = pafy.new(url)
 
         if not args.maxquality:
