@@ -39,7 +39,8 @@ Example usage:
 ```
 py -3.6 main.py single "https://www.youtube.com/watch?v=aIPqt-OdmS0&list=PLQVvvaa0QuDfV1MIRBOcqClP6VZXsvyZS" -m
 ```
-**Note**: The url must be passed within double quotes. 
+**Note**: 
+* The url and the output directory must be passed within double quotes. 
 
 
 ## Requirements
