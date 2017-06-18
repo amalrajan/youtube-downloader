@@ -76,6 +76,9 @@ def download_playlist(args):
 
         if not args.silent:
             video_description(url)
+
+        if url.count("https") > 1:
+            url = url[23:]
         video = pafy.new(url)
 
         if not args.maxquality:
@@ -152,7 +155,9 @@ def start_download(stream, path, title=None):
     if title is None:
         stream.download(filepath=path)
     else:
-        stream.download(filepath="{}\{}.{}".format(path, title, str(stream).split('@')[0][-3:]))
+        try:
+            stream.download(filepath="{}\{}.{}".format(path, title, str(stream).split('@')[0][-3:]))
+        except: pass
         # Only the playlist cases.
 
 
