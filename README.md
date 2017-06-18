@@ -11,11 +11,12 @@ Contributions are welcome :)
 
 
 ## Installation
-There is no stable version at the moment.
+
 ```
 cd folder_name
 git clone https://github.com/lollichop/youtube-downloader.git
 cd youtube-downloader
+pip install -U -r requirements.txt
 py -3.6 main.py             # or python3 main.py, depeding on how you have Python installed.
 ```
 
