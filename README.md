@@ -1,4 +1,3 @@
-
 # YouTube Downloader
 
 _Yet another tool to download youtube videos (and more, coming soon)._
@@ -52,7 +51,7 @@ py -3.6 main.py single "https://www.youtube.com/watch?v=aIPqt-OdmS0&list=PLQVvva
 
 ## Version and Status
 
-`Version 0.3.0`
+`Version 0.4.0`
 
 **Status**: Released the Beta version.
 
