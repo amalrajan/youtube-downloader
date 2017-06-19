@@ -54,7 +54,7 @@ py -3.6 main.py single "https://www.youtube.com/watch?v=aIPqt-OdmS0&list=PLQVvva
 
 `Version 0.3.0`
 
-**Status**: Work in progress.
+**Status**: Released the Beta version.
 
 
 ## License
