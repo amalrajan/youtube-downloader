@@ -24,7 +24,7 @@ py -3.6 main.py             # or python3 main.py, depeding on how you have Pytho
 usage: main.py [-h] [-m] [-o OUTPUT] type url
 
 positional arguments:
-  type                   single/multple/playlist/profile
+  type                   single/multiple/playlist
   url                    link to the original video on YouTube, or 
                          complete path to the text file
 
