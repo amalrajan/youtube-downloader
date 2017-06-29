@@ -42,6 +42,8 @@ def analyze_arguments(args):
             download_multiple(args)
         elif args.type == 'playlist':
             download_playlist(args)
+        elif args.type == 'description':
+            download_description(args)
             # elif args.type == 'profile':
             # download_profile(args)
 
@@ -91,6 +93,20 @@ def download_playlist(args):
             stream = video.getbest()
         start_download(stream, path=args.output, title=video.title)
         print()
+
+
+def download_description(args):
+    # Download video description.
+
+    if '.txt' not in args.url:
+        sauce = urllib.request.urlopen(args.url).read()
+        soup = bs.BeautifulSoup(sauce, 'lxml')
+
+        date = soup.find('strong', {'class': 'watch-time-text'})
+        description = soup.find('p', {'class': '', 'id': 'eow-description'})
+
+        with open('{}\description.txt'.format(args.output), 'a') as file:
+            file.write('{}\n\n{}\n\n\n'.format(date.text, description.text))
 
 
 def video_description(url):
