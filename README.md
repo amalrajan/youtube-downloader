@@ -45,7 +45,7 @@ py -3.6 main.py single "https://www.youtube.com/watch?v=aIPqt-OdmS0&list=PLQVvva
 
 
 ## Requirements
-* Python 3x
+* ~~Python 3x~~
 * pafy
 * youtube-dl
 
