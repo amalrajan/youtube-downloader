@@ -4,7 +4,10 @@ import sys
 import os
 import re
 import bs4 as bs
-import urllib.request
+if sys.version_info[:2] >= (3, 0):
+    import urllib.request
+else:
+    from six.moves import urllib
 
 
 def argument_parser():
