@@ -1,9 +1,10 @@
+import bs4 as bs
 import argparse
 import pafy
 import sys
 import os
 import re
-import bs4 as bs
+
 if sys.version_info[:2] >= (3, 0):
     import urllib.request
 else:
@@ -41,8 +42,8 @@ def analyze_arguments(args):
             download_multiple(args)
         elif args.type == 'playlist':
             download_playlist(args)
-        elif args.type == 'profile':
-            download_profile(args)
+            # elif args.type == 'profile':
+            # download_profile(args)
 
 
 def download_single(args):
@@ -160,8 +161,9 @@ def start_download(stream, path, title=None):
     else:
         try:
             stream.download(filepath="{}\{}.{}".format(path, title, str(stream).split('@')[0][-3:]))
-        except: pass
-        # Only the playlist cases.
+        except:
+            pass
+            # Only the playlist cases.
 
 
 if __name__ == '__main__':
