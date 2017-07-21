@@ -1,6 +1,6 @@
 # YouTube Downloader
 
-_Yet another tool to download youtube videos (and more, coming soon)._
+_-Yet another tool to download youtube videos (and more, coming soon).-_
  
 ## Description
 
