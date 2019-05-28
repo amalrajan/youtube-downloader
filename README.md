@@ -13,7 +13,7 @@ Contributions are welcome :)
 
 ```
 cd folder_name
-git clone https://github.com/lollichop/youtube-downloader.git
+git clone https://github.com/amalrajan/youtube-downloader.git
 cd youtube-downloader
 pip install -U -r requirements.txt
 py -3.6 main.py             # or python3 main.py, depeding on how you have Python installed.
