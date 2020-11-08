@@ -1,7 +1,7 @@
 # youtube-downloader
 Command line utility to download content from www.youtube.com
 
-#### NOTE: I'm archiving this repository following the DCMA takedown of youtube-dl, an important dependency for this project. 
+#### > :warning: [Nov-8-2020] I'm archiving this repository following the DCMA takedown of youtube-dl, an important dependency for this project.
  
 ## Description
 Download videos from Youtube using this simple tool, right from the command line. Supports downloading multiple videos.
