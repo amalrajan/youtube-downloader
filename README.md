@@ -31,7 +31,7 @@ optional arguments:
 
 ## Requirements
 * pafy
-* youtube-dl [development ceased]
+* youtube-dl
 
 ## Version and Status
 `Version 0.4.0`
